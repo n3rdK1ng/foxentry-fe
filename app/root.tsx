@@ -10,7 +10,7 @@ import {
 import clsx from 'clsx'
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
 
-import { themeSessionResolver } from '#sessions.server'
+import { themeSessionResolver } from '#utils/sessions.server'
 
 import tailwindStyleSheetUrl from './tailwind.css?url'
 
