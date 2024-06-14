@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-query'
 
 import { Products } from '#components/products'
+import { RouteHeader } from '#components/route-header'
 import { type Product } from '#utils/api/types'
 
 export const meta: MetaFunction = () => {
@@ -34,13 +35,9 @@ export default function Index() {
 	const { dehydratedState } = useLoaderData<typeof loader>()
 
 	return (
-		<section>
-			<h1 className="w-full border-b border-primary/50 pb-2 text-3xl font-bold mb-8">
-				Products
-			</h1>
-			<HydrationBoundary state={dehydratedState}>
-				<Products />
-			</HydrationBoundary>
-		</section>
+		<HydrationBoundary state={dehydratedState}>
+			<RouteHeader />
+			<Products />
+		</HydrationBoundary>
 	)
 }
