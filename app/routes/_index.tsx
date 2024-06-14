@@ -1,7 +1,6 @@
 import { type MetaFunction, json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
-import { ModeToggle } from '#components/mode-toggle'
 import { Button } from '#components/ui/button'
 import {
 	Card,
@@ -29,8 +28,7 @@ export default function Index() {
 	const { products } = useLoaderData<typeof loader>()
 
 	return (
-		<main className="container py-6">
-			<ModeToggle />
+		<section>
 			<h1 className="text-3xl font-bold border-b border-primary/50 pb-2 w-full">
 				Products
 			</h1>
@@ -55,6 +53,6 @@ export default function Index() {
 					</Card>
 				))}
 			</section>
-		</main>
+		</section>
 	)
 }
