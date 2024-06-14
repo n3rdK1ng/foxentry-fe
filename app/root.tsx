@@ -7,7 +7,10 @@ import {
 	ScrollRestoration,
 	useLoaderData,
 } from '@remix-run/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import clsx from 'clsx'
+import { useState } from 'react'
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
 
 import { Header } from '#components/header'
@@ -52,6 +55,7 @@ export function App() {
 
 					<div className="container">
 						<Outlet />
+						<ReactQueryDevtools initialIsOpen={false} />
 					</div>
 
 					<footer className="py-10"></footer>
@@ -65,9 +69,25 @@ export function App() {
 
 export default function AppWithProviders() {
 	const data = useLoaderData<typeof loader>()
+
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						// With SSR, we usually want to set some default staleTime
+						// above 0 to avoid refetching immediately on the client
+						staleTime: 60 * 1000,
+					},
+				},
+			}),
+	)
+
 	return (
 		<ThemeProvider specifiedTheme={data.theme} themeAction="/action/set-theme">
-			<App />
+			<QueryClientProvider client={queryClient}>
+				<App />
+			</QueryClientProvider>
 		</ThemeProvider>
 	)
 }
