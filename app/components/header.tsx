@@ -4,7 +4,7 @@ import { ModeToggle } from './mode-toggle'
 
 export const Header = () => {
 	return (
-		<header className="w-full bg-primary text-secondary py-4 mb-12 shadow-lg">
+		<header className="mb-12 w-full bg-primary py-4 text-secondary shadow-lg">
 			<div className="container flex items-center justify-between">
 				<Link prefetch="intent" to="/">
 					<h1 className="text-5xl font-bold">🦊</h1>

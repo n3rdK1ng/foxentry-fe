@@ -29,10 +29,10 @@ export default function Index() {
 
 	return (
 		<section>
-			<h1 className="text-3xl font-bold border-b border-primary/50 pb-2 w-full">
+			<h1 className="w-full border-b border-primary/50 pb-2 text-3xl font-bold">
 				Products
 			</h1>
-			<section className="grid grid-cols-3 gap-4 mt-8">
+			<section className="mt-8 grid grid-cols-3 gap-4">
 				{products.map(product => (
 					<Card key={product.name}>
 						<CardHeader>
