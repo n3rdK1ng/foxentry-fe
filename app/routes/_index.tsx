@@ -12,8 +12,13 @@ import { type Product } from '#utils/api/types'
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: 'New Remix App' },
-		{ name: 'description', content: 'Welcome to Remix!' },
+		{ title: 'Lišákův obchod' },
+		{
+			name: 'description',
+			content:
+				'Lišák Petr otevřel obchod v lese, kde prodává různé ovoce, ořechy a zeleninu.' +
+				'Tento systém mu pomáhá sledovat jeho prodeje a výdělky.',
+		},
 	]
 }
 
