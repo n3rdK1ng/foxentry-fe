@@ -23,7 +23,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
 	return (
 		<Card key={product.name}>
-			<CardHeader className="flex-row justify-between items-center gap-4">
+			<CardHeader className="flex-row items-center justify-between gap-4">
 				<CardTitle>{product.name}</CardTitle>
 				<Button
 					variant={'destructive'}
@@ -31,7 +31,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 					className="shrink-0"
 					onClick={() => mutate()}
 				>
-					{!isPending ? <TrashIcon className="w-4 h-4" /> : <LoadingSpinner />}
+					{!isPending ? <TrashIcon className="h-4 w-4" /> : <LoadingSpinner />}
 				</Button>
 			</CardHeader>
 			<CardContent>
@@ -42,7 +42,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 					<b>Zásoby</b>: {product.stock} ks
 				</p>
 			</CardContent>
-			<CardFooter className="flex-col gap-2 items-start">
+			<CardFooter className="flex-col items-start gap-2">
 				<Button className="w-full">Detail</Button>
 
 				{error && <ErrorAlert name={error.name} message={error.message} />}
