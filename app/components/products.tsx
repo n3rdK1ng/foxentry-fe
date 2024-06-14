@@ -16,7 +16,7 @@ export const Products = () => {
 
 	if (isPending) {
 		return (
-			<div className="flex justify-center w-full">
+			<div className="flex w-full justify-center">
 				<LoadingSpinner />
 			</div>
 		)
