@@ -10,6 +10,7 @@ import {
 import clsx from 'clsx'
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
 
+import { Header } from '#components/header'
 import { getEnv } from '#utils/env.server'
 import { themeSessionResolver } from '#utils/sessions.server'
 
@@ -46,7 +47,15 @@ export function App() {
 				<Links />
 			</head>
 			<body>
-				<Outlet />
+				<main className="flex flex-col justify-between h-screen">
+					<Header />
+
+					<div className="container">
+						<Outlet />
+					</div>
+
+					<footer className="py-10"></footer>
+				</main>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

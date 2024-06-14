@@ -42,7 +42,7 @@ export const action: ActionFunction = async ({ request }) =>
 
 export default function CreateProduct() {
 	return (
-		<main className="w-full flex flex-col items-center justify-center h-screen container">
+		<section className="w-full flex items-center justify-center h-full">
 			<Form
 				schema={schema}
 				buttonComponent={Button}
@@ -94,6 +94,6 @@ export default function CreateProduct() {
 					</>
 				)}
 			</Form>
-		</main>
+		</section>
 	)
 }
