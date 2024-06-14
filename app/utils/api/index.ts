@@ -26,4 +26,9 @@ const baseFetch = async <TData>(url: string, options: RequestInit = {}) => {
 
 export const api = {
 	getProducts: () => baseFetch<Product[]>('products'),
+	createProduct: (product: Product) =>
+		baseFetch<Product>(`products/${product.name}`, {
+			method: 'POST',
+			body: JSON.stringify(product),
+		}),
 }
