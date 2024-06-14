@@ -47,7 +47,7 @@ export function App() {
 				<Links />
 			</head>
 			<body>
-				<main className="flex flex-col justify-between h-screen">
+				<main className="flex h-screen flex-col justify-between">
 					<Header />
 
 					<div className="container">

@@ -42,11 +42,11 @@ export const action: ActionFunction = async ({ request }) =>
 
 export default function CreateProduct() {
 	return (
-		<section className="w-full flex items-center justify-center h-full">
+		<section className="flex h-full w-full items-center justify-center">
 			<Form
 				schema={schema}
 				buttonComponent={Button}
-				className="sm:w-2/3 w-full items-center flex flex-col sm:items-start space-y-6"
+				className="flex w-full flex-col items-center space-y-6 sm:w-2/3 sm:items-start"
 			>
 				{({ Field, Errors, Button, register }) => (
 					<>
@@ -55,11 +55,11 @@ export default function CreateProduct() {
 								<>
 									<Label htmlFor="name">Název produktu</Label>
 									<Input placeholder="Jahody" {...register('name')} />
-									<Errors className="text-red-800 text-sm mt-1" />
+									<Errors className="mt-1 text-sm text-red-800" />
 								</>
 							)}
 						</Field>
-						<div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
+						<div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
 							<Field name="price" className="w-full">
 								{({ Errors }) => (
 									<>
@@ -69,7 +69,7 @@ export default function CreateProduct() {
 											type="number"
 											{...register('price')}
 										/>
-										<Errors className="text-red-800 text-sm mt-1" />
+										<Errors className="mt-1 text-sm text-red-800" />
 									</>
 								)}
 							</Field>
@@ -82,12 +82,12 @@ export default function CreateProduct() {
 											type="number"
 											{...register('stock')}
 										/>
-										<Errors className="text-red-800 text-sm mt-1" />
+										<Errors className="mt-1 text-sm text-red-800" />
 									</>
 								)}
 							</Field>
 						</div>
-						<Errors className="text-red-800 text-sm" />
+						<Errors className="text-sm text-red-800" />
 						<Button type="submit" className="w-full">
 							Vytvořit produkt
 						</Button>
