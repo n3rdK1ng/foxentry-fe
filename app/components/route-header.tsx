@@ -1,54 +1,57 @@
 import { Link } from '@remix-run/react'
+import { useState } from 'react'
 
 import { SearchBar } from './search-bar'
-import { Button } from './ui/button'
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from './ui/select'
+import { SortSelects } from './sort-selects'
 
-export const RouteHeader = () => {
+export const RouteHeader = ({
+	title,
+	buttonLink,
+	button,
+	search,
+	sortValues,
+}: {
+	title: string
+	buttonLink?: string
+	button?: React.ReactNode
+	search?: boolean
+	sortValues?: {
+		value: string
+		label: string
+	}[]
+}) => {
+	const [sortBy, setSortBy] = useState(sortValues?.[0].value ?? '')
+	const [order, setOrder] = useState<'asc' | 'desc'>('asc')
+
 	return (
 		<>
 			<div className="mb-8 w-full border-b border-primary/50 pb-4">
 				<div className="flex items-center justify-between">
-					<h1 className="text-3xl font-bold">Produkty</h1>
-					<Link to={'/create-product'} prefetch="intent">
-						<Button className="gap-2">
-							🆕
-							<p className="hidden sm:block">Přidat produkt</p>
-						</Button>
-					</Link>
+					<h1 className="text-3xl font-bold">{title}</h1>
+					{buttonLink && (
+						<Link to={buttonLink} prefetch="intent">
+							{button}
+						</Link>
+					)}
 				</div>
 			</div>
-			<div className="mb-6 flex flex-col gap-4">
-				<SearchBar />
-				<div className="flex items-center gap-2 flex-wrap">
-					<p>Seřadit podle</p>
-					<Select>
-						<SelectTrigger className="w-[100px]">
-							<SelectValue placeholder="názvu" />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value="name">názvu</SelectItem>
-							<SelectItem value="price">ceny</SelectItem>
-							<SelectItem value="stock">zásob</SelectItem>
-						</SelectContent>
-					</Select>
-					<Select>
-						<SelectTrigger className="w-[120px]">
-							<SelectValue placeholder="vzestupně" />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value="up">vzestupně</SelectItem>
-							<SelectItem value="down">sestupně</SelectItem>
-						</SelectContent>
-					</Select>
+			{search && (
+				<div className="mb-6 flex flex-col gap-4">
+					<SearchBar variant="products" sortBy={sortBy} order={order} />
+					{sortValues && (
+						<div className="flex flex-wrap items-center gap-2">
+							<p>Seřadit podle</p>
+							<SortSelects
+								setValue={setSortBy}
+								values={sortValues}
+								order={order}
+								setOrder={setOrder}
+								className='w-[100px]'
+							/>
+						</div>
+					)}
 				</div>
-			</div>
+			)}
 		</>
 	)
 }

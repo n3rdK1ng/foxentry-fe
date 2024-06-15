@@ -8,6 +8,7 @@ import {
 
 import { Products } from '#components/products'
 import { RouteHeader } from '#components/route-header'
+import { Button } from '#components/ui/button'
 import { type Product } from '#utils/api/types'
 
 export const meta: MetaFunction = () => {
@@ -41,7 +42,31 @@ export default function Index() {
 
 	return (
 		<HydrationBoundary state={dehydratedState}>
-			<RouteHeader />
+			<RouteHeader
+				title={'Produkty'}
+				buttonLink={'/create-product'}
+				button={
+					<Button className="gap-2">
+						🆕
+						<p className="hidden sm:block">Přidat produkt</p>
+					</Button>
+				}
+				search
+				sortValues={[
+					{
+						value: 'name',
+						label: 'názvu',
+					},
+					{
+						value: 'price',
+						label: 'ceny',
+					},
+					{
+						value: 'stock',
+						label: 'zásob',
+					},
+				]}
+			/>
 			<Products />
 		</HydrationBoundary>
 	)
