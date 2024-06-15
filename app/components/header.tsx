@@ -7,15 +7,15 @@ export const Header = () => {
 		<header className="mb-12 w-full bg-primary py-4 text-secondary shadow-lg">
 			<div className="container flex items-center justify-between">
 				<Link prefetch="intent" to="/">
-					<h1 className="text-5xl font-bold">🦊</h1>
+					<div className="text-5xl font-bold">🦊</div>
 				</Link>
-				<div className="flex gap-8">
+				<div className="flex gap-4 sm:gap-8">
 					<nav className="flex items-center space-x-4">
-						<Link prefetch="intent" to="/">
-							🌳 Produkty
+						<Link className="flex gap-2" prefetch="intent" to="/">
+							🌳 <div className="hidden sm:block">Produkty</div>
 						</Link>
-						<Link prefetch="intent" to="">
-							😺 Zákazníci
+						<Link className="flex gap-2" prefetch="intent" to="/">
+							😺 <div className="hidden sm:block">Zákazníci</div>
 						</Link>
 					</nav>
 					<ModeToggle />

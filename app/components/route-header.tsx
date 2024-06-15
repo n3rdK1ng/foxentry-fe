@@ -26,10 +26,10 @@ export const RouteHeader = () => {
 			</div>
 			<div className="mb-6 flex flex-col gap-4">
 				<SearchBar />
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-2 flex-wrap">
 					<p>Seřadit podle</p>
 					<Select>
-						<SelectTrigger className="w-[180px]">
+						<SelectTrigger className="w-[100px]">
 							<SelectValue placeholder="názvu" />
 						</SelectTrigger>
 						<SelectContent>
@@ -39,7 +39,7 @@ export const RouteHeader = () => {
 						</SelectContent>
 					</Select>
 					<Select>
-						<SelectTrigger className="w-[180px]">
+						<SelectTrigger className="w-[120px]">
 							<SelectValue placeholder="vzestupně" />
 						</SelectTrigger>
 						<SelectContent>

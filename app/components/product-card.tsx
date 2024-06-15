@@ -16,7 +16,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 			fetch(`${ENV.API_URL}/products/${product.name}`, { method: 'DELETE' }),
 		onSuccess: () => {
 			queryClient.setQueryData(['products'], (oldData: Product[]) => {
-				return oldData?.filter(p => p.name !== product.name)
+				return oldData.filter(p => p.name !== product.name)
 			})
 		},
 	})
