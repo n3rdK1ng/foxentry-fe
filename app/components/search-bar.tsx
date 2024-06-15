@@ -1,38 +1,64 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
-
-import { Product } from '#utils/api/types'
 
 import { ErrorAlert } from './error-alert'
 import { LoadingSpinner } from './loading-spinner'
 import { Input } from './ui/input'
 
-export const SearchBar = () => {
+export const SearchBar = ({
+	variant,
+	sortBy,
+	order,
+}: {
+	variant: 'products'
+	sortBy: string
+	order: 'asc' | 'desc'
+}) => {
+	const [searchQuery, setSearchQuery] = useState('')
+
 	const queryClient = useQueryClient()
 
+	const generateUrl = (searchQuery: string) => {
+		const url = new URL(`${ENV.API_URL}/${variant}`)
+
+		if (searchQuery.trim()) {
+			url.pathname += `/search/${searchQuery.trim()}`
+		}
+
+		url.searchParams.append('sort-by', sortBy)
+		url.searchParams.append('order', order)
+
+		return url.toString()
+	}
+
 	const { isPending, error, mutate } = useMutation({
-		mutationFn: (searchQuery: string) =>
-			fetch(`${ENV.API_URL}/products/search/${searchQuery}`).then(
-				res => res.json() as Promise<Product[]>,
-			),
+		mutationFn: (url: string) => fetch(url).then(res => res.json()),
 		onSuccess: data => {
-			queryClient.setQueryData(['products'], data)
+			queryClient.setQueryData([variant], data)
 		},
 	})
 
 	const debouncedSearch = useDebouncedCallback(value => {
 		if (value.trim() === '') {
-			queryClient.invalidateQueries({ queryKey: ['products'] })
+			queryClient.invalidateQueries({ queryKey: [variant] })
 		} else {
-			mutate(value)
+			mutate(generateUrl(value))
 		}
 	}, 500)
+
+	useEffect(() => {
+		mutate(generateUrl(searchQuery))
+	}, [sortBy, order])
 
 	return (
 		<div className="relative flex flex-col gap-4">
 			<Input
 				placeholder="Hledat..."
-				onChange={e => debouncedSearch(e.target.value)}
+				onChange={e => {
+					setSearchQuery(e.target.value)
+					debouncedSearch(e.target.value)
+				}}
 			/>
 			{isPending && <LoadingSpinner className="absolute right-2 top-2" />}
 			{error && <ErrorAlert name={error.name} message={error.message} />}
