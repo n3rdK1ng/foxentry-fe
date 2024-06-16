@@ -27,12 +27,12 @@ const baseFetch = async <TData>(url: string, options: RequestInit = {}) => {
 export const api = {
 	getProducts: () => baseFetch<Product[]>('products'),
 	createProduct: (product: Product) =>
-		baseFetch<Product>(`products/${product.name}`, {
+		baseFetch<Product>(`products/${product.id}`, {
 			method: 'POST',
 			body: JSON.stringify(product),
 		}),
 	editProduct: (product: Product) =>
-		baseFetch<Product>(`products/${product.name}`, {
+		baseFetch<Product>(`products/${product.id}`, {
 			method: 'PATCH',
 			body: JSON.stringify(product),
 		}),

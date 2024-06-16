@@ -5,9 +5,15 @@ import { ProductForm } from '#components/product-form'
 import { api } from '#utils/api'
 import { formAction } from '#utils/form-action'
 import { productSchema } from '#utils/form-schemas'
+import { generateIdFromName } from '#utils/misc'
 
 const mutation = makeDomainFunction(productSchema)(async values => {
-	const { response } = await api.createProduct(values)
+	const updatedValues = {
+		...values,
+		id: generateIdFromName(values.name),
+	}
+
+	const { response } = await api.createProduct(updatedValues)
 
 	if (!response.ok) {
 		if (response.status === 409) {
