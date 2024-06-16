@@ -4,7 +4,7 @@ const schema = z.object({
 	NODE_ENV: z.enum(['production', 'development'] as const),
 	API_URL: z.enum([
 		'http://localhost:3000',
-		'https://foxentry-be.onrender.com',
+		'https://foxentry-be.vercel.app',
 	] as const),
 })
 
