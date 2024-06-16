@@ -37,7 +37,7 @@ export default function ProductDetailRoute() {
 	return (
 		<HydrationBoundary state={dehydratedState}>
 			{!location.pathname.includes('edit-product') && (
-				<ProductDetail product={product} />
+				<ProductDetail productId={product} />
 			)}
 			<Outlet />
 		</HydrationBoundary>

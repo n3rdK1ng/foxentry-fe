@@ -1,5 +1,5 @@
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
-import { Outlet, useLoaderData } from '@remix-run/react'
+import { useLoaderData } from '@remix-run/react'
 import {
 	HydrationBoundary,
 	QueryClient,
@@ -24,6 +24,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
 			),
 	})
 
+	await queryClient.prefetchQuery({
+		queryKey: ['customer-' + params.customer + '-orders'],
+		queryFn: () =>
+			fetch(
+				`${ENV.API_URL}/orders/search/${params.customer}/customerId/${params.customer}`,
+			).then(res => res.json() as Promise<Customer>),
+	})
+
 	return json({
 		dehydratedState: dehydrate(queryClient),
 		customer: params.customer,
@@ -35,8 +43,7 @@ export default function CustomerDetailRoute() {
 
 	return (
 		<HydrationBoundary state={dehydratedState}>
-			<CustomerDetail customer={customer} />
-			<Outlet />
+			<CustomerDetail customerId={customer} />
 		</HydrationBoundary>
 	)
 }

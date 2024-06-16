@@ -3,19 +3,36 @@ import { useQuery } from '@tanstack/react-query'
 import { ErrorAlert } from '#components/error-alert'
 import { LoadingSpinner } from '#components/loading-spinner'
 import { RouteHeader } from '#components/route-header'
-import { Button } from '#components/ui/button'
-import type { Product } from '#utils/api/types'
+import type { Order, Product } from '#utils/api/types'
 
-export const ProductDetail = ({ product }: { product: string }) => {
-	const { data, isPending, error } = useQuery({
-		queryKey: ['product-' + product],
+import { DetailOrders } from './detail-orders'
+
+export const ProductDetail = ({ productId }: { productId: string }) => {
+	const {
+		data: product,
+		isPending: productIsPending,
+		error: productError,
+	} = useQuery({
+		queryKey: ['product-' + productId],
 		queryFn: () =>
-			fetch(`${ENV.API_URL}/products/${product}`).then(
+			fetch(`${ENV.API_URL}/products/${productId}`).then(
 				res => res.json() as Promise<Product>,
 			),
 	})
 
-	if (isPending) {
+	const {
+		data: orders,
+		isPending: ordersIsPending,
+		error: ordersError,
+	} = useQuery({
+		queryKey: ['product-' + productId + '-orders'],
+		queryFn: () =>
+			fetch(
+				`${ENV.API_URL}/orders/search/${productId}/productId/${productId}`,
+			).then(res => res.json() as Promise<Order[]>),
+	})
+
+	if (productIsPending || ordersIsPending) {
 		return (
 			<div className="flex w-full justify-center">
 				<LoadingSpinner />
@@ -23,37 +40,35 @@ export const ProductDetail = ({ product }: { product: string }) => {
 		)
 	}
 
-	if (error) {
-		return <ErrorAlert name={error.name} message={error.message} />
+	if (productError) {
+		return (
+			<ErrorAlert name={productError.name} message={productError.message} />
+		)
 	}
 
-	if ('error' in data && 'message' in data) {
+	if (ordersError) {
+		return <ErrorAlert name={ordersError.name} message={ordersError.message} />
+	}
+
+	if ('error' in product && 'message' in product) {
 		return (
 			<ErrorAlert
-				name={data.error as string}
-				message={data.message as string}
+				name={product.error as string}
+				message={product.message as string}
 			/>
 		)
 	}
 
 	return (
 		<>
-			<RouteHeader
-				title={data.name}
-				buttonLink={'edit-product'}
-				button={
-					<Button className="gap-2">
-						⚙️
-						<p className="hidden sm:block">Upravit produkt</p>
-					</Button>
-				}
-			/>
+			<RouteHeader title={product.name} />
 			<p>
-				<b>Cena</b>: {data.price} Kč
+				<b>Cena</b>: {product.price} Kč
 			</p>
 			<p>
-				<b>Zásoby</b>: {data.stock} ks
+				<b>Zásoby</b>: {product.stock} ks
 			</p>
+			<DetailOrders id={productId} variant="product" orders={orders} />
 		</>
 	)
 }

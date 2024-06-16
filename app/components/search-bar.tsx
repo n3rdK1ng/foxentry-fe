@@ -10,20 +10,32 @@ export const SearchBar = ({
 	variant,
 	sortBy,
 	order,
+	options,
+	altQueryKey,
 }: {
 	variant: 'products' | 'customers' | 'orders'
 	sortBy: string
 	order: 'asc' | 'desc'
+	options?: string
+	altQueryKey?: string
 }) => {
 	const [searchQuery, setSearchQuery] = useState('')
 
 	const queryClient = useQueryClient()
 
-	const generateUrl = (searchQuery: string) => {
+	const generateUrl = (searchQuery: string, options?: string) => {
 		const url = new URL(`${ENV.API_URL}/${variant}`)
 
+		if (options) {
+			url.pathname += `/search/${options}`
+		}
+
 		if (searchQuery.trim()) {
-			url.pathname += `/search/${searchQuery.trim()}`
+			if (!options) {
+				url.pathname += '/search'
+			}
+
+			url.pathname += `/${searchQuery.trim()}`
 		}
 
 		url.searchParams.append('sort-by', sortBy)
@@ -35,20 +47,22 @@ export const SearchBar = ({
 	const { isPending, error, mutate } = useMutation({
 		mutationFn: (url: string) => fetch(url).then(res => res.json()),
 		onSuccess: data => {
-			queryClient.setQueryData([variant], data)
+			queryClient.setQueryData([!altQueryKey ? variant : altQueryKey], data)
 		},
 	})
 
 	const debouncedSearch = useDebouncedCallback(value => {
-		if (value.trim() === '') {
-			queryClient.invalidateQueries({ queryKey: [variant] })
+		if (value.trim() === '' && !altQueryKey) {
+			queryClient.invalidateQueries({
+				queryKey: [variant],
+			})
 		} else {
-			mutate(generateUrl(value))
+			mutate(generateUrl(value, options))
 		}
 	}, 500)
 
 	useEffect(() => {
-		mutate(generateUrl(searchQuery))
+		mutate(generateUrl(searchQuery, options))
 	}, [sortBy, order])
 
 	return (
