@@ -1,3 +1,4 @@
+import { Link } from '@remix-run/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { TrashIcon } from 'lucide-react'
 
@@ -43,7 +44,16 @@ export const ProductCard = ({ product }: { product: Product }) => {
 				</p>
 			</CardContent>
 			<CardFooter className="flex-col items-start gap-2">
-				<Button className="w-full">Detail</Button>
+				<Link
+					className="w-full"
+					to={`/${product.id}/edit-product`}
+					prefetch="intent"
+				>
+					<Button className="w-full" variant={'outline'}>Upravit</Button>
+				</Link>
+				<Link className="w-full" to={`/${product.id}`} prefetch="intent">
+					<Button className="w-full">Detail</Button>
+				</Link>
 
 				{error && <ErrorAlert name={error.name} message={error.message} />}
 			</CardFooter>

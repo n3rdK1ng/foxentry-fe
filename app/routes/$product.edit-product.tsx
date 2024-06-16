@@ -32,7 +32,7 @@ export const action: ActionFunction = async ({ request }) =>
 		request,
 		schema: productSchema,
 		mutation,
-		successPath: '/',
+		successPath: '/success',
 	})
 
 export default function ProductEditRoute() {
