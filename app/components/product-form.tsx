@@ -24,7 +24,7 @@ export const ProductForm = ({
 			<div className="w-full sm:w-2/3">
 				<RouteHeader
 					title={variant === 'edit' ? product?.name ?? '' : 'Nový produkt'}
-					buttonLink=".."
+					buttonLink="/"
 					button={
 						<Button variant="outline" size="icon">
 							❌
