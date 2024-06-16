@@ -3,18 +3,36 @@ import { useQuery } from '@tanstack/react-query'
 import { ErrorAlert } from '#components/error-alert'
 import { LoadingSpinner } from '#components/loading-spinner'
 import { RouteHeader } from '#components/route-header'
-import type { Customer } from '#utils/api/types'
+import type { Customer, Order } from '#utils/api/types'
 
-export const CustomerDetail = ({ customer }: { customer: string }) => {
-	const { data, isPending, error } = useQuery({
-		queryKey: ['customer-' + customer],
+import { DetailOrders } from './detail-orders'
+
+export const CustomerDetail = ({ customerId }: { customerId: string }) => {
+	const {
+		data: customer,
+		isPending: customerIsPending,
+		error: customerError,
+	} = useQuery({
+		queryKey: ['customer-' + customerId],
 		queryFn: () =>
-			fetch(`${ENV.API_URL}/customers/${customer}`).then(
+			fetch(`${ENV.API_URL}/customers/${customerId}`).then(
 				res => res.json() as Promise<Customer>,
 			),
 	})
 
-	if (isPending) {
+	const {
+		data: orders,
+		isPending: ordersIsPending,
+		error: ordersError,
+	} = useQuery({
+		queryKey: ['customer-' + customerId + '-orders'],
+		queryFn: () =>
+			fetch(
+				`${ENV.API_URL}/orders/search/${customerId}/customerId/${customerId}`,
+			).then(res => res.json() as Promise<Order[]>),
+	})
+
+	if (customerIsPending || ordersIsPending) {
 		return (
 			<div className="flex w-full justify-center">
 				<LoadingSpinner />
@@ -22,28 +40,35 @@ export const CustomerDetail = ({ customer }: { customer: string }) => {
 		)
 	}
 
-	if (error) {
-		return <ErrorAlert name={error.name} message={error.message} />
+	if (customerError) {
+		return (
+			<ErrorAlert name={customerError.name} message={customerError.message} />
+		)
 	}
 
-	if ('error' in data && 'message' in data) {
+	if (ordersError) {
+		return <ErrorAlert name={ordersError.name} message={ordersError.message} />
+	}
+
+	if ('error' in customer && 'message' in customer) {
 		return (
 			<ErrorAlert
-				name={data.error as string}
-				message={data.message as string}
+				name={customer.error as string}
+				message={customer.message as string}
 			/>
 		)
 	}
 
 	return (
 		<>
-			<RouteHeader title={data.name} />
+			<RouteHeader title={customer.name} />
 			<p>
-				<b>Výnos</b>: {data.yield} Kč
+				<b>Výnos</b>: {customer.yield} Kč
 			</p>
 			<p>
-				<b>Nákupy</b>: {data.purchases} ks
+				<b>Nákupy</b>: {customer.purchases} ks
 			</p>
+			<DetailOrders id={customerId} variant="customer" orders={orders} />
 		</>
 	)
 }

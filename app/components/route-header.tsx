@@ -10,6 +10,9 @@ export const RouteHeader = ({
 	button,
 	search,
 	sortValues,
+	hideTitle,
+	searchOptions,
+	altQueryKey,
 }: {
 	title: string
 	buttonLink?: string
@@ -19,25 +22,36 @@ export const RouteHeader = ({
 		value: string
 		label: string
 	}[]
+	hideTitle?: boolean
+	searchOptions?: string
+	altQueryKey?: string
 }) => {
 	const [sortBy, setSortBy] = useState(sortValues?.[0].value ?? '')
 	const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
 	return (
 		<>
-			<div className="mb-8 w-full border-b border-primary/50 pb-4">
-				<div className="flex items-center justify-between">
-					<h1 className="text-3xl font-bold">{title}</h1>
-					{buttonLink && (
-						<Link to={buttonLink} prefetch="intent">
-							{button}
-						</Link>
-					)}
+			{!hideTitle && (
+				<div className="mb-8 w-full border-b border-primary/50 pb-4">
+					<div className="flex items-center justify-between">
+						<h1 className="text-3xl font-bold">{title}</h1>
+						{buttonLink && (
+							<Link to={buttonLink} prefetch="intent">
+								{button}
+							</Link>
+						)}
+					</div>
 				</div>
-			</div>
+			)}
 			{search && (
 				<div className="mb-6 flex flex-col gap-4">
-					<SearchBar variant={search} sortBy={sortBy} order={order} />
+					<SearchBar
+						variant={search}
+						sortBy={sortBy}
+						order={order}
+						options={searchOptions}
+						altQueryKey={altQueryKey}
+					/>
 					{sortValues && (
 						<div className="flex flex-wrap items-center gap-2">
 							<p>Seřadit podle</p>
