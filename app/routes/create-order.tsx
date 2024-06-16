@@ -38,7 +38,7 @@ export const action: ActionFunction = async ({ request }) =>
 		request,
 		schema: orderSchema,
 		mutation,
-		successPath: '/success',
+		successPath: '/success?variant=orders',
 	})
 
 export default function CreateOrder() {
