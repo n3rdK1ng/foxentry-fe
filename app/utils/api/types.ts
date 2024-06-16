@@ -4,3 +4,10 @@ export type Product = {
 	price: number
 	stock: number
 }
+
+export type Customer = {
+	id: string
+	name: string
+	yield: number
+	purchases: number
+}

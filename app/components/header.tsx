@@ -14,7 +14,7 @@ export const Header = () => {
 						<Link className="flex gap-2" prefetch="intent" to="/">
 							🌳 <div className="hidden sm:block">Produkty</div>
 						</Link>
-						<Link className="flex gap-2" prefetch="intent" to="/">
+						<Link className="flex gap-2" prefetch="intent" to="/customers">
 							😺 <div className="hidden sm:block">Zákazníci</div>
 						</Link>
 					</nav>

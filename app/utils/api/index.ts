@@ -1,6 +1,6 @@
 import { combineHeaders } from '#utils/misc'
 
-import { Product } from './types'
+import { Customer, Product } from './types'
 
 export type ErrorResponse = {
 	error: unknown
@@ -35,5 +35,10 @@ export const api = {
 		baseFetch<Product>(`products/${product.id}`, {
 			method: 'PATCH',
 			body: JSON.stringify(product),
+		}),
+	createCustomer: (customer: Customer) =>
+		baseFetch<Customer>(`customers/${customer.id}`, {
+			method: 'POST',
+			body: JSON.stringify(customer),
 		}),
 }
