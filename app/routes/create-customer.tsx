@@ -28,7 +28,7 @@ export const action: ActionFunction = async ({ request }) =>
 		request,
 		schema: customerSchema,
 		mutation,
-		successPath: '/success',
+		successPath: '/success?variant=customers',
 	})
 
 export default function CreateCustomer() {

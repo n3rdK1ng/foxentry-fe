@@ -28,7 +28,7 @@ export const action: ActionFunction = async ({ request }) =>
 		request,
 		schema: productSchema,
 		mutation,
-		successPath: '/success',
+		successPath: '/success?variant=products',
 	})
 
 export default function CreateProduct() {
