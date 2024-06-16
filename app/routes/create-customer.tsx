@@ -31,6 +31,6 @@ export const action: ActionFunction = async ({ request }) =>
 		successPath: '/success?variant=customers',
 	})
 
-export default function CreateCustomer() {
+export default function CreateCustomerRoute() {
 	return <CustomerForm />
 }
