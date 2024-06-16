@@ -5,10 +5,10 @@ export const productSchema = z.object({
 		.string()
 		.min(1, 'Název musí obsahovat alespoň 1 znak')
 		.max(255, 'Název může obsahovat maximálně 255 znaků'),
-	price: z.number().min(0.01, 'Cena musí být větší než 0.01'),
+	price: z.number().min(0.01, 'Cena musí být větší než 0'),
 	stock: z
 		.number()
-		.min(0, 'Počet na skladě musí být větší nebo roven 0')
+		.min(0, 'Počet na skladě musí být alespoň 0')
 		.int('Počet na skladě musí být celé číslo'),
 })
 
@@ -33,6 +33,6 @@ export const orderSchema = z.object({
 	price: z.number(),
 	amount: z
 		.number()
-		.min(1, 'Množství musí být větší než 1')
+		.min(1, 'Množství musí být alespoň 1')
 		.int('Množství musí být celé číslo'),
 })
