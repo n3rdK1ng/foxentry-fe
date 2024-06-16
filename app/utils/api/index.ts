@@ -31,4 +31,9 @@ export const api = {
 			method: 'POST',
 			body: JSON.stringify(product),
 		}),
+	editProduct: (product: Product) =>
+		baseFetch<Product>(`products/${product.name}`, {
+			method: 'PATCH',
+			body: JSON.stringify(product),
+		}),
 }
