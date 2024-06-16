@@ -1,6 +1,6 @@
 import { combineHeaders } from '#utils/misc'
 
-import { Customer, Product } from './types'
+import { Customer, Order, Product } from './types'
 
 export type ErrorResponse = {
 	error: unknown
@@ -40,5 +40,10 @@ export const api = {
 		baseFetch<Customer>(`customers/${customer.id}`, {
 			method: 'POST',
 			body: JSON.stringify(customer),
+		}),
+	createOrder: (order: Order) =>
+		baseFetch<Order>(`orders/${order.id}`, {
+			method: 'POST',
+			body: JSON.stringify(order),
 		}),
 }

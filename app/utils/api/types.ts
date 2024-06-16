@@ -11,3 +11,13 @@ export type Customer = {
 	yield: number
 	purchases: number
 }
+
+export type Order = {
+	id: string
+	productId: string
+	customerId: string
+	productName: string
+	customerName: string
+	price: number
+	amount: number
+}
