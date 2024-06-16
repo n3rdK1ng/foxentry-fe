@@ -37,7 +37,7 @@ export async function loader() {
 	return json({ dehydratedState: dehydrate(queryClient) })
 }
 
-export default function Index() {
+export default function IndexRoute() {
 	const { dehydratedState } = useLoaderData<typeof loader>()
 
 	return (
