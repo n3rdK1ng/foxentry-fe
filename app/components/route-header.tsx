@@ -14,7 +14,7 @@ export const RouteHeader = ({
 	title: string
 	buttonLink?: string
 	button?: React.ReactNode
-	search?: boolean
+	search?: 'products' | 'customers'
 	sortValues?: {
 		value: string
 		label: string
@@ -37,7 +37,7 @@ export const RouteHeader = ({
 			</div>
 			{search && (
 				<div className="mb-6 flex flex-col gap-4">
-					<SearchBar variant="products" sortBy={sortBy} order={order} />
+					<SearchBar variant={search} sortBy={sortBy} order={order} />
 					{sortValues && (
 						<div className="flex flex-wrap items-center gap-2">
 							<p>Seřadit podle</p>
@@ -46,7 +46,7 @@ export const RouteHeader = ({
 								values={sortValues}
 								order={order}
 								setOrder={setOrder}
-								className='w-[100px]'
+								className="w-[100px]"
 							/>
 						</div>
 					)}

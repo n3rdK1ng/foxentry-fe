@@ -51,7 +51,7 @@ export default function Index() {
 						<p className="hidden sm:block">Přidat produkt</p>
 					</Button>
 				}
-				search
+				search="products"
 				sortValues={[
 					{
 						value: 'name',

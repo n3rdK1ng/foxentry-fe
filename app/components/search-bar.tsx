@@ -11,7 +11,7 @@ export const SearchBar = ({
 	sortBy,
 	order,
 }: {
-	variant: 'products'
+	variant: 'products' | 'customers'
 	sortBy: string
 	order: 'asc' | 'desc'
 }) => {
