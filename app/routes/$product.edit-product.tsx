@@ -10,11 +10,17 @@ import { api } from '#utils/api'
 import type { Product } from '#utils/api/types'
 import { formAction } from '#utils/form-action'
 import { productSchema } from '#utils/form-schemas'
+import { generateIdFromName } from '#utils/misc'
 
 import { loader as productLoader } from './$product'
 
 const mutation = makeDomainFunction(productSchema)(async values => {
-	const { response } = await api.editProduct(values)
+	const updatedValues = {
+		...values,
+		id: generateIdFromName(values.name),
+	}
+
+	const { response } = await api.editProduct(updatedValues)
 
 	if (!response.ok) {
 		throw new Error(`Nepodařilo se vytvořit produkt: ${response.statusText}`)

@@ -22,7 +22,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 	})
 
 	return (
-		<Card key={product.name}>
+		<Card>
 			<CardHeader className="flex-row items-center justify-between gap-4">
 				<CardTitle>{product.name}</CardTitle>
 				<Button
