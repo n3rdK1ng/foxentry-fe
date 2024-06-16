@@ -20,3 +20,19 @@ export const customerSchema = z.object({
 	yield: z.number(),
 	purchases: z.number(),
 })
+
+export const orderSchema = z.object({
+	productName: z
+		.string()
+		.min(1, 'Název produktu musí obsahovat alespoň 1 znak')
+		.max(255, 'Název může obsahovat maximálně 255 znaků'),
+	customerName: z
+		.string()
+		.min(1, 'Jméno zákazníka musí obsahovat alespoň 1 znak')
+		.max(255, 'Název může obsahovat maximálně 255 znaků'),
+	price: z.number(),
+	amount: z
+		.number()
+		.min(1, 'Množství musí být větší než 1')
+		.int('Množství musí být celé číslo'),
+})

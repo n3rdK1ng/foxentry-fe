@@ -14,7 +14,7 @@ export const RouteHeader = ({
 	title: string
 	buttonLink?: string
 	button?: React.ReactNode
-	search?: 'products' | 'customers'
+	search?: 'products' | 'customers' | 'orders'
 	sortValues?: {
 		value: string
 		label: string
