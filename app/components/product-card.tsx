@@ -14,10 +14,10 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
 	const { isPending, error, mutate } = useMutation({
 		mutationFn: () =>
-			fetch(`${ENV.API_URL}/products/${product.name}`, { method: 'DELETE' }),
+			fetch(`${ENV.API_URL}/products/${product.id}`, { method: 'DELETE' }),
 		onSuccess: () => {
 			queryClient.setQueryData(['products'], (oldData: Product[]) => {
-				return oldData.filter(p => p.name !== product.name)
+				return oldData.filter(p => p.id !== product.id)
 			})
 		},
 	})
@@ -49,7 +49,9 @@ export const ProductCard = ({ product }: { product: Product }) => {
 					to={`/${product.id}/edit-product`}
 					prefetch="intent"
 				>
-					<Button className="w-full" variant={'outline'}>Upravit</Button>
+					<Button className="w-full" variant={'outline'}>
+						Upravit
+					</Button>
 				</Link>
 				<Link className="w-full" to={`/${product.id}`} prefetch="intent">
 					<Button className="w-full">Detail</Button>
