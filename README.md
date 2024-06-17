@@ -1,37 +1,22 @@
-# Welcome to Remix!
+# Foxentry FE
 
-- 📖 [Remix docs](https://remix.run/docs)
+## Description
 
-## Development
+Web application made with [Remix](https://remix.run/),
+[TanStack Query](https://tanstack.com/query/latest),
+[tailwindcss](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/)
+for e-commerce inventory management.
 
-Run the dev server:
+Deployed at [Vercel](https://vercel.com/)
 
-```shellscript
-npm run dev
+## Installation
+
+```bash
+$ pnpm install
 ```
 
-## Deployment
+## Running the app
 
-First, build your app for production:
-
-```sh
-npm run build
+```bash
+$ pnpm dev
 ```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app
-server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
