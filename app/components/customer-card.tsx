@@ -40,7 +40,7 @@ export const CustomerCard = ({ customer }: { customer: Customer }) => {
 					<b>Výnos</b>: {customer.yield} Kč
 				</p>
 				<p>
-					<b>Nákupy</b>: {customer.purchases} ks
+					<b>Nákupy</b>: {customer.purchases}
 				</p>
 			</CardContent>
 			<CardFooter>
