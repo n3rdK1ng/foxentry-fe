@@ -66,7 +66,7 @@ export const CustomerDetail = ({ customerId }: { customerId: string }) => {
 				<b>Výnos</b>: {customer.yield} Kč
 			</p>
 			<p>
-				<b>Nákupy</b>: {customer.purchases} ks
+				<b>Nákupy</b>: {customer.purchases}
 			</p>
 			<DetailOrders id={customerId} variant="customer" orders={orders} />
 		</>
