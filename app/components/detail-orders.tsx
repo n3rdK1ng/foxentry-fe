@@ -1,6 +1,7 @@
 import { RouteHeader } from '#components/route-header'
 import type { Order } from '#utils/api/types'
 
+import { TableLink } from './table-link'
 import {
 	Table,
 	TableBody,
@@ -63,8 +64,16 @@ export const DetailOrders = ({
 				<TableBody>
 					{orders.map(order => (
 						<TableRow key={order.id}>
-							<TableCell className="font-medium">{order.productName}</TableCell>
-							<TableCell>{order.customerName}</TableCell>
+							<TableLink
+								id={order.productId}
+								name={order.productName}
+								variant={variant !== 'product' ? 'product' : undefined}
+							/>
+							<TableLink
+								id={order.customerId}
+								name={order.customerName}
+								variant={variant !== 'customer' ? 'customer' : undefined}
+							/>
 							<TableCell>{order.amount}</TableCell>
 							<TableCell className="text-right">{order.price} Kč</TableCell>
 						</TableRow>

@@ -4,6 +4,7 @@ import { ErrorAlert } from '#components/error-alert'
 import { LoadingSpinner } from '#components/loading-spinner'
 import { Order } from '#utils/api/types'
 
+import { TableLink } from './table-link'
 import {
 	Table,
 	TableBody,
@@ -49,8 +50,16 @@ export const Orders = () => {
 			<TableBody>
 				{data.map(order => (
 					<TableRow key={order.id}>
-						<TableCell className="font-medium">{order.productName}</TableCell>
-						<TableCell>{order.customerName}</TableCell>
+						<TableLink
+							id={order.productId}
+							name={order.productName}
+							variant={'product'}
+						/>
+						<TableLink
+							id={order.customerId}
+							name={order.customerName}
+							variant={'customer'}
+						/>
 						<TableCell>{order.amount}</TableCell>
 						<TableCell className="text-right">{order.price} Kč</TableCell>
 					</TableRow>
