@@ -21,6 +21,7 @@ export const TableLink = ({
 				className="hover:underline"
 				to={'/' + (variant === 'customer' ? 'customers/' : '') + id}
 				prefetch="intent"
+				unstable_viewTransition
 			>
 				{name}
 			</Link>

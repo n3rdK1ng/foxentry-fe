@@ -48,6 +48,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 					className="w-full"
 					to={`/${product.id}/edit-product`}
 					prefetch="intent"
+					unstable_viewTransition
 				>
 					<Button className="w-full" variant={'outline'}>
 						Upravit

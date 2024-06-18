@@ -15,7 +15,11 @@ export default function SuccessRoute() {
 				{variant === 'customers' && 'Zákazník byl úspěšně vytvořen'}
 				{variant === 'orders' && 'Objednávka byla úspěšně vytvořena'}
 			</h2>
-			<Link to={variant !== 'products' ? `/${variant}` : '/'} prefetch="intent">
+			<Link
+				to={variant !== 'products' ? `/${variant}` : '/'}
+				prefetch="intent"
+				unstable_viewTransition
+			>
 				<Button>
 					Zpátky na {variant === 'products' && 'produkty'}
 					{variant === 'customers' && 'zákazníky'}

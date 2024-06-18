@@ -48,6 +48,7 @@ export const CustomerCard = ({ customer }: { customer: Customer }) => {
 					className="w-full"
 					to={`/customers/${customer.id}`}
 					prefetch="intent"
+					unstable_viewTransition
 				>
 					<Button className="w-full">Detail</Button>
 				</Link>
